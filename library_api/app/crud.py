@@ -48,13 +48,13 @@ def update_book(book_id: str, title: str, author: str) -> Optional[Book]:
         book.author = author
     return book
 
-def mark_book_unavailable(book_id: int) -> Optional[Book]:
+def mark_book_unavailable(book_id: str) -> Optional[Book]:
     book = get_book(book_id)
     if book:
         book.is_available = False
     return book
 
-def borrow_book(user_id: int, book_id: int) -> Optional[BorrowRecord]:
+def borrow_book(user_id: str, book_id: str) -> Optional[BorrowRecord]:
     user = get_user(user_id)
     book = get_book(book_id)
     if user and user.is_active and book and book.is_available:
@@ -65,7 +65,7 @@ def borrow_book(user_id: int, book_id: int) -> Optional[BorrowRecord]:
             return borrow_record
     return None
 
-def return_book(borrow_record_id: int) -> Optional[BorrowRecord]:
+def return_book(borrow_record_id: str) -> Optional[BorrowRecord]:
     borrow_record = next((br for br in borrow_records if br.id == borrow_record_id), None)
     if borrow_record and borrow_record.return_date is None:
         borrow_record.return_date = date.today()

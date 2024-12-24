@@ -5,13 +5,13 @@ from typing import Optional
 class UserBase(BaseModel):
     name: str
     email: EmailStr
-    is_active: bool = True
 
 class UserCreate(UserBase):
     pass
 
 class User(UserBase):
     id: str
+    is_active: bool = True
     
     class Config:
         orm_mode = True
@@ -19,13 +19,13 @@ class User(UserBase):
 class BookBase(BaseModel):
     title: str
     author: str
-    is_available: bool = True
 
 class BookCreate(BookBase):
     pass
 
 class Book(BookBase):
     id: str
+    is_available: bool = True
     
     class Config:
         orm_mode = True
