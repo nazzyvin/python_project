@@ -37,7 +37,7 @@ def create_book(book: Book) -> Book:
 def get_book(book_id: str) -> Optional[Book]:
     for b in books:
         if b.id == book_id:
-            return next
+            return b
         
     return None
 
@@ -46,23 +46,35 @@ def update_book(book_id: str, title: str, author: str) -> Optional[Book]:
     if book:
         book.title = title
         book.author = author
-    return book
+        return book
+    
+    return None
 
 def mark_book_unavailable(book_id: str) -> Optional[Book]:
     book = get_book(book_id)
     if book:
         book.is_available = False
-    return book
+        return book
+    return None
 
 def borrow_book(user_id: str, book_id: str) -> Optional[BorrowRecord]:
     user = get_user(user_id)
     book = get_book(book_id)
     if user and user.is_active and book and book.is_available:
-        if not any(br for br in borrow_records if br.user_id == user_id and br.book_id == book_id and br.return_date is None):
-            borrow_record = BorrowRecord(id=len(borrow_records) + 1, user_id=user_id, book_id=book_id, borrow_date=date.today())
+        if not any(
+            br for br in borrow_records
+            if br.user_id == user_id and br.book_id == book_id and br.return_date is None
+            ):
+            borrow_record = BorrowRecord(
+            id=len(borrow_records) + 1,
+            user_id=user_id,
+            book_id=book_id,
+            borrow_date=date.today()
+            )
             borrow_records.append(borrow_record)
             book.is_available = False
             return borrow_record
+        
     return None
 
 def return_book(borrow_record_id: str) -> Optional[BorrowRecord]:
