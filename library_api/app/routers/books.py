@@ -9,7 +9,7 @@ router = APIRouter()
 def create_book(book: schemas.BookCreate):
     book_id = len(crud.books) + 1
     new_book = crud.create_book(
-        schemas.Book(id=book_id, title=book.title, author=book.author, is_available=True)
+        schemas.Book(id=str(book_id), title=book.title, author=book.author, is_available=True)
     )
     return new_book
 
