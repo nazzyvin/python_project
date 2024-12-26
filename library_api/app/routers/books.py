@@ -18,6 +18,7 @@ def read_book(book_id: str):
     book = crud.get_book(book_id)
     if book is None:
         raise HTTPException(status_code=404, detail="Book not found")
+    
     return book
 
 @router.put("/{book_id}", response_model=schemas.Book)
