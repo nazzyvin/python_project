@@ -40,6 +40,7 @@ def deactivate_user(user_id: str) -> Optional[User]:
     return user
 
 def create_book(book: Book) -> Book:
+    book.id = str(uuid.uuid4())
     books.append(book)
     return book
 

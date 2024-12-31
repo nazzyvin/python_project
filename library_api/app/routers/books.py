@@ -1,16 +1,14 @@
 # app/routers/books.py
 from fastapi import APIRouter, HTTPException
 from typing import List
+import uuid
 from .. import crud, schemas
 
 router = APIRouter()
 
 @router.post("/", response_model=schemas.Book)
 def create_book(book: schemas.BookCreate):
-    book_id = len(crud.books) + 1
-    new_book = crud.create_book(
-        schemas.Book(id=str(book_id), title=book.title, author=book.author, is_available=True)
-    )
+    new_book = schemas.Book(id=str(uuid.uuid4()), title=book.title, author=book.author)
     return new_book
 
 @router.get("/{book_id}", response_model=schemas.Book)
