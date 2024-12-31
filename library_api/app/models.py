@@ -1,4 +1,3 @@
-# app/models.py
 from typing import Optional
 from datetime import date
 
